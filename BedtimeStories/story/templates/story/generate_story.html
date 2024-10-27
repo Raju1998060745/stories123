@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bedtime Stories</title>
+</head>
+<body>
+    <div style="text-align:center;">
+        <h1>Bedtime Stories</h1>
+        <form method="post" action="">
+            {% csrf_token %}
+            <label for="age_group">Age Group:</label>
+            {{ form.age_group }}
+            <br><br>
+
+            <label for="character">Character:</label>
+            {{ form.character }}
+            <br><br>
+
+            <label for="theme">Theme:</label>
+            {{ form.theme }}
+            <br><br>
+
+            <button type="submit">Generate Story</button>
+        </form>
+
+        <div style="margin-top:20px;">
+            <h2>Generated Story</h2>
+            <p>{{ story }}</p>
+        </div>
+    </div>
+</body>
+</html>
