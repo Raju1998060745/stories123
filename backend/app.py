@@ -1,9 +1,17 @@
+import logging
 from flask import Flask, request, jsonify
-import subprocess
-import json
+from flask_cors import CORS
+from langchain_community.llms.ollama import Ollama  # Directly import Ollama
 
 # Initialize Flask app
 app = Flask(__name__)
+CORS(app)
+
+# Configure logging
+logging.basicConfig(level=logging.DEBUG)
+
+# Initialize the Ollama model once at startup
+model = Ollama(model="llama3")
 
 # Define the endpoint for generating bedtime stories
 @app.route('/generate_story', methods=['POST'])
@@ -19,22 +27,16 @@ def generate_story():
 
     # Define the prompt
     prompt = f"Write a short bedtime story for a {age_group}-year-old. The story should include {character} and be about {theme}."
+    app.logger.debug("Generated prompt: %s", prompt)
 
     try:
-        # Call ollama CLI to generate the story using llama3
-        result = subprocess.run(
-            ["ollama", "generate", "llama3", "--prompt", prompt],
-            capture_output=True,
-            text=True,
-            check=True
-        )
+        # Generate the story using the Ollama model
+        response_text = model.invoke(prompt)
+        return jsonify({"story": response_text.strip()})
 
-        # Parse and return the generated story
-        story = result.stdout.strip()
-        return jsonify({"story": story})
-
-    except subprocess.CalledProcessError as e:
-        # Handle errors from the ollama command
+    except Exception as e:
+        # Handle errors from Ollama model invocation
+        app.logger.error("Error generating story: %s", str(e))
         return jsonify({"error": "Failed to generate story", "details": str(e)}), 500
 
 if __name__ == '__main__':
