@@ -1,6 +1,3 @@
-Currently under development
-
-
 # stories123
 
 ## Overview
