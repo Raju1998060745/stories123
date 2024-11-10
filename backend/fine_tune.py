@@ -39,7 +39,7 @@ texts = text_splitter.split_text(princess)
 
 #print(len(embedding[0]))
 # Use the vectorstore as a retriever
-#retriever = vectorstore.as_retriever()
+#retriever = vectorstore.as_retriever() kk
 
 # Retrieve the most similar text
 #retrieved_documents = retriever.invoke("Cinderella?")
