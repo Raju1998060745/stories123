@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bedtime Stories</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        input[type="text"], select {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .story-container {
+            margin-top: 20px;
+            text-align: left;
+        }
+        h2 {
+            color: #333;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        p {
+            background: #f1f1f1;
+            padding: 15px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Bedtime Stories</h1>
+        <form method="post" action="">
+            {% csrf_token %}
+            <label for="age_group">Age Group:</label>
+            {{ form.age_group }}
+            <br><br>
+
+            <label for="character">Character:</label>
+            {{ form.character }}
+            <br><br>
+
+            <label for="theme">Theme:</label>
+            {{ form.theme }}
+            <br><br>
+
+            <button type="submit">Generate Story</button>
+        </form>
+
+        <div class="story-container">
+            <h2>Generated Story</h2>
+            <p>{{ story }}</p>
+        </div>
+    </div>
+</body>
+</html>
