@@ -11,7 +11,7 @@ from langchain_chroma import Chroma
 
 #loader = CSVLoader(file_path="hf://datasets/FareedKhan/1k_stories_100_genre/1k_stories_100_genre.csv")
 #data = loader.load()
-#print(data)
+#print(data stories)
 
 with open("data/formatted_disney_princesses.txt") as f:
     princess = f.read()
