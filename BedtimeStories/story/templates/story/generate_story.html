@@ -5,94 +5,197 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bedtime Stories</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .container {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            max-width: 500px;
-            width: 100%;
-            text-align: center;
-        }
-        h1 {
-            color: #333;
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-        label {
-            display: block;
-            margin: 10px 0 5px;
-            font-weight: bold;
-        }
-        input[type="text"], select {
-            width: calc(100% - 22px);
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        .story-container {
-            margin-top: 20px;
-            text-align: left;
-        }
-        h2 {
-            color: #333;
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
-        p {
-            background: #f1f1f1;
-            padding: 15px;
-            border-radius: 4px;
-        }
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+    min-height: 100vh;
+    padding: 2rem;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Header styles */
+header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.logo {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+h1 {
+    color: #2d3748;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+header p {
+    color: #4a5568;
+    font-size: 1.1rem;
+}
+
+/* Form styles */
+.story-form {
+    background: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #4a5568;
+}
+
+select,
+input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+select:focus,
+input:focus {
+    outline: none;
+    border-color: #4c51bf;
+    box-shadow: 0 0 0 3px rgba(76, 81, 191, 0.1);
+}
+
+.generate-btn {
+    width: 100%;
+    padding: 1rem;
+    background: #4c51bf;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.generate-btn:hover {
+    background: #434190;
+}
+
+.btn-icon {
+    font-size: 1.2rem;
+}
+
+/* Story display styles */
+.story-display {
+    background: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 2rem;
+}
+
+.story-display h2 {
+    color: #2d3748;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.story-display p {
+    color: #4a5568;
+    line-height: 1.8;
+    font-size: 1.1rem;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    body {
+        padding: 1rem;
+    }
+
+    .story-form,
+    .story-display {
+        padding: 1.5rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .logo {
+        font-size: 3rem;
+    }
+}
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Bedtime Stories</h1>
-        <form method="post" action="">
+        
+        <header>
+            <div class="logo">🌙</div>
+            <h1>Bedtime Story Generator</h1>
+            <p>Create magical stories for peaceful dreams</p>
+        </header>
+        <main>
+        <form method="post" class="story-form" action="">
             {% csrf_token %}
+            <div class="form-group">
             <label for="age_group">Age Group:</label>
             {{ form.age_group }}
             <br><br>
+            </div>
 
+            <div class="form-group">
             <label for="character">Character:</label>
             {{ form.character }}
             <br><br>
-
+            </div>
+            <div class="form-group">
             <label for="theme">Theme:</label>
             {{ form.theme }}
             <br><br>
-
-            <button type="submit">Generate Story</button>
+            </div>
+            <button type="submit"class="generate-btn">
+                <span class="btn-icon">📖</span>Generate Story</button>
         </form>
 
-        <div class="story-container">
+        <div class="story-display">
             <h2>Generated Story</h2>
             <p>{{ story }}</p>
         </div>
+    </main>
     </div>
 </body>
 </html>
